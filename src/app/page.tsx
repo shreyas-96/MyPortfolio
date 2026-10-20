@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Download, ArrowRight, CheckCircle2, Database, Code2 } from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 export default function Home() {
     const processSteps = [
@@ -100,6 +100,16 @@ export default function Home() {
                                 aria-label="GitHub"
                             >
                                 <FaGithub size={20} />
+                            </a>
+                            <a
+                                href="https://linkedin.com/in/shreyaschudmunge96"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="btn btn-secondary"
+                                style={{ padding: '0.75rem', borderRadius: '50%' }}
+                                aria-label="LinkedIn"
+                            >
+                                <FaLinkedin size={20} />
                             </a>
                             <a
                                 href="/resume.pdf"

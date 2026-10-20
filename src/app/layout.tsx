@@ -72,7 +72,7 @@ export default function RootLayout({
                                 <FaGithub size={22} />
                             </a>
                             <a
-                                href="https://linkedin.com"
+                                href="https://linkedin.com/in/shreyaschudmunge96"
                                 target="_blank"
                                 rel="noreferrer"
                                 style={{ color: 'var(--text-secondary)' }}

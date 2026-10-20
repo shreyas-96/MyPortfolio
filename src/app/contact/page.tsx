@@ -3,7 +3,7 @@
 import PageTransition from '@/components/PageTransition';
 import { motion } from 'framer-motion';
 import { Mail, Send } from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 export default function Contact() {
     return (
@@ -58,6 +58,23 @@ export default function Contact() {
                                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', fontFamily: 'Cinzel, serif', letterSpacing: '0.05em' }}>GITHUB</p>
                                     <a href="https://github.com/shreyas-96" target="_blank" rel="noreferrer" style={{ color: 'var(--text-primary)', fontWeight: 500 }} className="hover:text-accent">
                                         github.com/shreyas-96
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <div style={{
+                                    padding: '0.85rem',
+                                    background: 'rgba(212,175,55,0.1)',
+                                    border: '1px solid rgba(212,175,55,0.25)',
+                                    borderRadius: '0.75rem'
+                                }}>
+                                    <FaLinkedin color="var(--accent-gold)" size={22} />
+                                </div>
+                                <div>
+                                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', fontFamily: 'Cinzel, serif', letterSpacing: '0.05em' }}>LINKEDIN</p>
+                                    <a href="https://linkedin.com/in/shreyaschudmunge96" target="_blank" rel="noreferrer" style={{ color: 'var(--text-primary)', fontWeight: 500 }} className="hover:text-accent">
+                                        linkedin.com/in/shreyaschudmunge96
                                     </a>
                                 </div>
                             </div>
