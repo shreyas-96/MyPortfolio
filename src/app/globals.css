@@ -1,26 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cinzel+Decorative:wght@700&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
-  /* Game of Thrones: Valyrian Steel, Dragonstone & A Song of Ice and Fire */
   --bg-primary: #060911;
   --bg-secondary: #0d121f;
   --bg-tertiary: #131b2e;
-  
+
   --text-primary: #f5f6fa;
   --text-secondary: #9aa5b8;
   --text-muted: #6b778d;
 
-  /* Theme Accents: Ancient Gold & Dragon Ember with Winter Frost */
-  --accent-color: #d4af37;        /* Valyrian Gold */
+  --accent-color: #d4af37;
   --accent-gold: #ffd700;
-  --accent-fire: #ff6a00;        /* Targaryen Dragon Flame */
-  --accent-ice: #00f0ff;         /* Winterfell Frost */
+  --accent-fire: #ff6a00;
+  --accent-ice: #00f0ff;
   --accent-gradient: linear-gradient(135deg, #d4af37 0%, #ff7b25 50%, #c49618 100%);
   --fire-gradient: linear-gradient(135deg, #ff4500 0%, #ff8c00 50%, #ffd700 100%);
   --ice-gradient: linear-gradient(135deg, #00f0ff 0%, #0088ff 100%);
   --valyrian-gradient: linear-gradient(135deg, #d4af37 0%, #6e7a8a 50%, #1f2937 100%);
 
-  /* Valyrian Glass & Steel */
   --glass-bg: rgba(10, 15, 27, 0.75);
   --glass-border: rgba(212, 175, 55, 0.16);
   --glass-border-hover: rgba(212, 175, 55, 0.45);
@@ -31,6 +28,11 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -46,12 +48,7 @@ body {
   background-attachment: fixed;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: 'Cinzel', serif;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -63,21 +60,26 @@ a {
   transition: var(--transition);
 }
 
-/* Typography */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── TYPOGRAPHY ── */
 .heading-xl {
-  font-size: clamp(2.5rem, 6vw, 4.2rem);
+  font-size: clamp(1.9rem, 5.5vw, 4.2rem);
   line-height: 1.15;
   letter-spacing: 0.03em;
 }
 
 .heading-lg {
-  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-size: clamp(1.6rem, 4.5vw, 3.2rem);
   line-height: 1.25;
   letter-spacing: 0.04em;
 }
 
 .heading-md {
-  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-size: clamp(1.2rem, 2.8vw, 1.9rem);
   letter-spacing: 0.03em;
 }
 
@@ -96,18 +98,18 @@ a {
 }
 
 .text-body {
-  font-size: 1.125rem;
+  font-size: clamp(0.95rem, 2vw, 1.125rem);
   color: var(--text-secondary);
   font-family: 'Inter', sans-serif;
 }
 
-/* Game of Thrones Sigil Divider */
+/* ── DIVIDER ── */
 .got-divider {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  margin: 1.25rem auto 3.5rem;
+  margin: 1.25rem auto 3rem;
   color: var(--accent-color);
   font-size: 0.95rem;
 }
@@ -116,31 +118,32 @@ a {
 .got-divider::after {
   content: '';
   height: 1px;
-  width: 70px;
+  width: clamp(30px, 5vw, 70px);
   background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
 }
 
-/* Layout */
+/* ── LAYOUT ── */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  width: 100%;
 }
 
 .section {
-  padding: 6rem 0;
+  padding: clamp(3rem, 7vw, 6rem) 0;
   position: relative;
   z-index: 1;
 }
 
-/* Valyrian Glass Cards */
+/* ── GLASS CARDS ── */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--glass-border);
   border-radius: 1.25rem;
-  padding: 2.5rem;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
   transition: var(--transition);
   box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(212, 175, 55, 0.1);
   position: relative;
@@ -152,7 +155,7 @@ a {
   box-shadow: 0 15px 45px -10px rgba(0, 0, 0, 0.6), 0 0 25px rgba(212, 175, 55, 0.15);
 }
 
-/* Gilded & Valyrian Buttons */
+/* ── BUTTONS ── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -166,8 +169,11 @@ a {
   transition: var(--transition);
   border: none;
   gap: 0.6rem;
-  font-size: 0.95rem;
+  font-size: clamp(0.8rem, 2vw, 0.95rem);
   text-transform: uppercase;
+  white-space: nowrap;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary {
@@ -198,7 +204,7 @@ a {
   box-shadow: 0 0 18px rgba(212, 175, 55, 0.2);
 }
 
-/* Navigation */
+/* ── NAVIGATION ── */
 .navbar {
   position: fixed;
   top: 0;
@@ -221,23 +227,24 @@ a {
 
 .logo {
   font-family: 'Cinzel', serif;
-  font-size: 1.55rem;
+  font-size: clamp(1.2rem, 3vw, 1.55rem);
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: 0.06em;
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  flex-shrink: 0;
 }
 
 .nav-links {
   display: flex;
-  gap: 2.2rem;
+  gap: clamp(1rem, 2.5vw, 2.2rem);
   align-items: center;
 }
 
 .nav-link {
-  font-size: 0.92rem;
+  font-size: clamp(0.78rem, 1.5vw, 0.92rem);
   font-weight: 600;
   font-family: 'Cinzel', serif;
   letter-spacing: 0.04em;
@@ -250,7 +257,7 @@ a {
   color: var(--accent-gold);
 }
 
-/* Page Transitions */
+/* ── PAGE WRAPPER ── */
 .page-wrapper {
   padding-top: 80px;
   min-height: 100vh;
@@ -260,99 +267,238 @@ a {
   z-index: 1;
 }
 
-/* Utilities */
-.text-center {
-  text-align: center;
-}
+/* ── UTILITIES ── */
+.text-center { text-align: center; }
+.mt-2  { margin-top: 0.5rem; }
+.mt-4  { margin-top: 1rem; }
+.mt-8  { margin-top: 2rem; }
+.mb-2  { margin-bottom: 0.5rem; }
+.mb-4  { margin-bottom: 1rem; }
+.mb-6  { margin-bottom: 1.5rem; }
+.mb-8  { margin-bottom: 2rem; }
+.flex  { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.gap-8 { gap: 2rem; }
+.w-full { width: 100%; }
 
-.mt-2 {
-  margin-top: 0.5rem;
-}
-
-.mt-4 {
-  margin-top: 1rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
-}
-
-.mb-2 {
-  margin-bottom: 0.5rem;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
-}
-
-.mb-6 {
-  margin-bottom: 1.5rem;
-}
-
-.mb-8 {
-  margin-bottom: 2rem;
-}
-
-.flex {
-  display: flex;
-}
-
-.flex-col {
-  flex-direction: column;
-}
-
-.items-center {
-  align-items: center;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.gap-2 {
-  gap: 0.5rem;
-}
-
-.gap-4 {
-  gap: 1rem;
-}
-
-.gap-6 {
-  gap: 1.5rem;
-}
-
-.gap-8 {
-  gap: 2rem;
-}
-
-.w-full {
-  width: 100%;
-}
-
-/* Mobile Menu */
+/* ── MOBILE MENU BUTTON ── */
 .mobile-menu-btn {
   display: none;
   background: none;
-  border: none;
+  border: 1px solid var(--glass-border);
   color: var(--text-primary);
   font-size: 1.5rem;
   cursor: pointer;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
+/* ── RESPONSIVE HERO GRID ── */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+}
+
+/* ── RESPONSIVE 2-COL GRID ── */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* ── PDF VIEWER OVERLAY ── */
+.pdf-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(3, 5, 10, 0.92);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.pdf-overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 900px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  background: rgba(10, 15, 27, 0.9);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.75rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pdf-frame-wrap {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background: #fff;
+  flex: 1;
+}
+
+.pdf-frame-wrap iframe {
+  width: 100%;
+  height: calc(100vh - 160px);
+  min-height: 400px;
+  border: none;
+  display: block;
+}
+
+/* ─────────────────────────────────────────────
+   MEDIA QUERIES — MOBILE FIRST
+───────────────────────────────────────────── */
+
+/* ── ≤ 768px  (phones & small tablets) ── */
 @media (max-width: 768px) {
+  /* Nav */
   .nav-links {
     display: none;
   }
-
   .mobile-menu-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Hero grid → single column */
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  /* About / Why grid → single column */
+  .two-col-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* Hide floating hero image on very small phones */
+  .hero-visual {
+    display: none;
+  }
+
+  /* Flex rows → wrap */
+  .flex-mobile-wrap {
+    flex-wrap: wrap;
+  }
+
+  /* Buttons full-width in small screens */
+  .btn-row {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .btn-row .btn {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  /* Section padding reduced */
+  .section {
+    padding: 3rem 0;
+  }
+
+  .got-divider {
+    margin-bottom: 2rem;
+  }
+
+  /* Cards: reduce gap */
+  .glass-card {
+    padding: 1.25rem;
+  }
+
+  /* PDF overlay */
+  .pdf-frame-wrap iframe {
+    height: calc(100vh - 180px);
+  }
+}
+
+/* ── ≤ 480px  (small phones 320-480px) ── */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.875rem;
   }
 
   .heading-xl {
-    font-size: 2.4rem;
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  .heading-lg {
+    font-size: 1.5rem;
+  }
+
+  .heading-md {
+    font-size: 1.15rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1.1rem;
+    font-size: 0.78rem;
+  }
+
+  .glass-card {
+    padding: 1rem;
+    border-radius: 1rem;
   }
 
   .section {
-    padding: 4rem 0;
+    padding: 2.5rem 0;
+  }
+
+  /* PDF overlay header — stack vertically */
+  .pdf-overlay-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ── 768px – 1024px (tablets) ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-grid {
+    gap: 2.5rem;
+  }
+
+  .two-col-grid {
+    gap: 2.5rem;
+  }
+
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .nav-links {
+    gap: 1.2rem;
+  }
+
+  .nav-link {
+    font-size: 0.8rem;
+  }
+}
+
+/* ── ≥ 1440px (large desktop) ── */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1300px;
   }
 }
