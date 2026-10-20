@@ -68,7 +68,7 @@ export default function Home() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.3, duration: 0.7 }}
                         >
-                            Forging modern, high-performance, and resilient Android applications with Java, Firebase, and cutting-edge mobile architectures.
+                            Android/Java developer with 11 months of internship experience in mobile application development, Firebase-backed systems, and clean user experiences — forging practical, high-performance software solutions.
                         </motion.p>
 
                         <motion.div
