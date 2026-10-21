@@ -1,51 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cinzel+Decorative:wght@700&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
 /* ═══════════════════════════════════════════════
-   VINTAGE PROFESSIONAL PALETTE
-   Aged Brass · Antique Gold · Warm Sepia · Ivory
+   PROFESSIONAL PALETTE — Deep Midnight + Royal Gold
+   Background: Deep space black-navy
+   Accent:     Royal antique gold
+   Text:       Warm cream / soft ivory
 ═══════════════════════════════════════════════ */
 :root {
-  /* Background tones — deep warm dark, like aged leather / darkroom */
-  --bg-primary:    #0B0906;
-  --bg-secondary:  #131009;
-  --bg-tertiary:   #1A1510;
+  /* Deep midnight backgrounds */
+  --bg-primary:    #07080E;
+  --bg-secondary:  #0C0E1A;
+  --bg-tertiary:   #131628;
 
-  /* Text — warm cream / ivory instead of cold white */
-  --text-primary:   #E8DDD0;
-  --text-secondary: #A8967E;
-  --text-muted:     #6B5A48;
+  /* Warm cream text — readable & professional */
+  --text-primary:   #EAE6DA;
+  --text-secondary: #9A9484;
+  --text-muted:     #5E5A50;
 
-  /* Accent — aged brass / antique gold (NOT bright yellow) */
-  --accent-color:   #B8960C;
-  --accent-gold:    #C4A035;
-  --accent-brass:   #8B7340;
-  --accent-fire:    #7A3B1E;   /* deep burnt sienna — very muted */
-  --accent-ice:     #4A5568;   /* slate/pewter — no cyan */
+  /* Royal Gold — the signature accent */
+  --accent-color:   #C9A84C;
+  --accent-gold:    #D4AF50;
+  --accent-bright:  #E8C96A;
+  --accent-dark:    #8B6F28;
 
-  /* Gradients — warm vintage tones */
-  --accent-gradient: linear-gradient(135deg, #C4A035 0%, #8B6914 50%, #A87D20 100%);
-  --fire-gradient:   linear-gradient(135deg, #7A3B1E 0%, #A0541A 50%, #C4870A 100%);
-  --valyrian-gradient: linear-gradient(135deg, #B8960C 0%, #6E5A3A 50%, #2A2018 100%);
-
-  /* Glass — warm dark instead of cold blue */
-  --glass-bg:           rgba(12, 9, 5, 0.82);
-  --glass-border:       rgba(180, 148, 60, 0.14);
-  --glass-border-hover: rgba(196, 160, 53, 0.38);
+  /* Gradients */
+  --accent-gradient: linear-gradient(135deg, #D4AF50 0%, #8B6F28 55%, #C9A84C 100%);
+  --glass-bg:        rgba(9, 10, 18, 0.84);
+  --glass-border:    rgba(201, 168, 76, 0.16);
+  --glass-border-hover: rgba(212, 175, 80, 0.42);
 
   --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ── BASE RESET ── */
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html {
-  -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
-}
+/* ── RESET ── */
+* { box-sizing: border-box; padding: 0; margin: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
 body {
   background-color: var(--bg-primary);
@@ -53,10 +42,11 @@ body {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
-  /* Subtle warm sepia centre — like candlelight ambience */
+  /* Subtle deep midnight atmosphere */
   background-image:
-    radial-gradient(ellipse at 50% 80%, rgba(130, 80, 15, 0.05) 0%, transparent 55%),
-    radial-gradient(ellipse at 20% 30%, rgba(100, 65, 15, 0.03) 0%, transparent 40%);
+    radial-gradient(ellipse at 80% 5%,  rgba(40, 50, 110, 0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 15% 90%, rgba(120, 80, 15, 0.05)  0%, transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(8, 9, 16, 0.4) 0%, transparent 80%);
   background-attachment: fixed;
 }
 
@@ -65,49 +55,30 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: 0.04em;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-img, video {
-  max-width: 100%;
-  height: auto;
-}
+a { color: inherit; text-decoration: none; transition: var(--transition); }
+img, video { max-width: 100%; height: auto; }
 
 /* ── TYPOGRAPHY ── */
 .heading-xl {
   font-size: clamp(1.9rem, 5.5vw, 4rem);
   line-height: 1.15;
   letter-spacing: 0.03em;
-  /* Warm cream text with subtle warmth */
-  color: #E8DDD0;
+  color: var(--text-primary);
 }
-
 .heading-lg {
   font-size: clamp(1.6rem, 4.5vw, 3rem);
   line-height: 1.25;
   letter-spacing: 0.04em;
-  color: #E8DDD0;
+  color: var(--text-primary);
 }
-
 .heading-md {
   font-size: clamp(1.15rem, 2.8vw, 1.75rem);
   letter-spacing: 0.03em;
 }
 
-/* Antique gold gradient on text */
+/* Royal gold gradient text */
 .text-gradient {
-  background: linear-gradient(135deg, #D4AF5A 0%, #8B6914 40%, #C4980C 80%, #A87820 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.text-ice-gradient {
-  background: linear-gradient(135deg, #9AA5B4 0%, #637280 100%);
+  background: linear-gradient(135deg, #E8C96A 0%, #C9A84C 35%, #8B6F28 70%, #D4AF50 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -119,7 +90,7 @@ img, video {
   font-family: 'Inter', sans-serif;
 }
 
-/* ── VINTAGE DIVIDER ── */
+/* ── GOLD DIVIDER ── */
 .got-divider {
   display: flex;
   align-items: center;
@@ -128,16 +99,14 @@ img, video {
   margin: 1.25rem auto 3rem;
   color: var(--accent-gold);
   font-size: 0.9rem;
-  opacity: 0.8;
+  opacity: 0.85;
 }
-
 .got-divider::before,
 .got-divider::after {
   content: '';
   height: 1px;
   width: clamp(30px, 5vw, 70px);
-  /* Warm brass line */
-  background: linear-gradient(90deg, transparent, rgba(196, 160, 53, 0.5), transparent);
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 80, 0.55), transparent);
 }
 
 /* ── LAYOUT ── */
@@ -147,35 +116,35 @@ img, video {
   padding: 0 clamp(1rem, 4vw, 2rem);
   width: 100%;
 }
-
 .section {
   padding: clamp(3rem, 7vw, 6rem) 0;
   position: relative;
   z-index: 1;
 }
 
-/* ── VINTAGE GLASS CARDS ── */
+/* ── PREMIUM GLASS CARDS ──
+   Deep midnight glass with royal gold border */
 .glass-card {
-  /* Warm dark glass — like aged wood / leather */
-  background: linear-gradient(135deg, rgba(18, 13, 8, 0.88) 0%, rgba(14, 10, 6, 0.92) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: linear-gradient(135deg,
+    rgba(12, 14, 24, 0.90) 0%,
+    rgba(9, 11, 20, 0.92) 100%
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
   border-radius: 1rem;
   padding: clamp(1.25rem, 3vw, 2.25rem);
   transition: var(--transition);
-  /* Warm subtle shadow — no blue/cold tones */
   box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.55),
-    inset 0 1px 0 rgba(196, 160, 53, 0.07);
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(201, 168, 76, 0.08);
 }
-
 .glass-card:hover {
   transform: translateY(-4px);
   border-color: var(--glass-border-hover);
   box-shadow:
-    0 16px 48px rgba(0, 0, 0, 0.65),
-    0 0 20px rgba(180, 148, 60, 0.08);
+    0 18px 50px rgba(0, 0, 0, 0.7),
+    0 0 22px rgba(201, 168, 76, 0.10);
 }
 
 /* ── BUTTONS ── */
@@ -199,57 +168,50 @@ img, video {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Primary — antique brass/gold */
+/* Primary — Royal Gold */
 .btn-primary {
-  background: linear-gradient(135deg, #C4A035 0%, #8B6914 60%, #A87820 100%);
-  color: #0D0A06;
+  background: linear-gradient(135deg, #D4AF50 0%, #8B6F28 60%, #C9A84C 100%);
+  color: #06060C;
   font-weight: 700;
-  box-shadow: 0 3px 16px rgba(180, 140, 30, 0.22), 0 1px 4px rgba(0,0,0,0.5);
+  box-shadow: 0 3px 18px rgba(201, 168, 76, 0.28), 0 1px 4px rgba(0, 0, 0, 0.5);
 }
-
 .btn-primary:hover {
-  box-shadow: 0 5px 24px rgba(196, 160, 53, 0.35), 0 1px 6px rgba(0,0,0,0.6);
+  box-shadow: 0 6px 28px rgba(212, 175, 80, 0.40), 0 0 14px rgba(201, 168, 76, 0.25);
   transform: translateY(-2px);
   filter: brightness(1.08);
 }
 
-/* Secondary — dark vintage glass */
+/* Secondary — Midnight glass with gold border */
 .btn-secondary {
-  background: rgba(18, 13, 8, 0.75);
+  background: rgba(10, 11, 20, 0.78);
   color: var(--text-secondary);
-  border: 1px solid rgba(180, 148, 60, 0.22);
+  border: 1px solid rgba(201, 168, 76, 0.24);
   backdrop-filter: blur(8px);
 }
-
 .btn-secondary:hover {
-  background: rgba(180, 148, 60, 0.07);
-  border-color: rgba(196, 160, 53, 0.45);
-  color: var(--accent-gold);
+  background: rgba(201, 168, 76, 0.08);
+  border-color: rgba(212, 175, 80, 0.50);
+  color: var(--accent-bright);
   transform: translateY(-2px);
-  box-shadow: 0 0 14px rgba(180, 148, 60, 0.14);
+  box-shadow: 0 0 16px rgba(201, 168, 76, 0.15);
 }
 
 /* ── NAVBAR ── */
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   z-index: 100;
   transition: var(--transition);
-  /* Warm dark glass navbar */
-  background: rgba(8, 6, 4, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(180, 148, 60, 0.12);
+  background: rgba(6, 7, 13, 0.90);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.13);
 }
-
 .nav-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .logo {
   font-family: 'Cinzel', serif;
   font-size: clamp(1.2rem, 3vw, 1.5rem);
@@ -261,13 +223,11 @@ img, video {
   gap: 0.35rem;
   flex-shrink: 0;
 }
-
 .nav-links {
   display: flex;
   gap: clamp(1rem, 2.5vw, 2rem);
   align-items: center;
 }
-
 .nav-link {
   font-size: clamp(0.76rem, 1.4vw, 0.88rem);
   font-weight: 600;
@@ -277,11 +237,8 @@ img, video {
   transition: var(--transition);
   text-transform: uppercase;
 }
-
 .nav-link:hover,
-.nav-link.active {
-  color: var(--accent-gold);
-}
+.nav-link.active { color: var(--accent-gold); }
 
 /* ── PAGE WRAPPER ── */
 .page-wrapper {
@@ -295,30 +252,20 @@ img, video {
 
 /* ── UTILITIES ── */
 .text-center { text-align: center; }
-.mt-2  { margin-top: 0.5rem; }
-.mt-4  { margin-top: 1rem; }
-.mt-8  { margin-top: 2rem; }
-.mb-2  { margin-bottom: 0.5rem; }
 .mb-4  { margin-bottom: 1rem; }
 .mb-6  { margin-bottom: 1.5rem; }
 .mb-8  { margin-bottom: 2rem; }
 .flex  { display: flex; }
-.flex-col { flex-direction: column; }
 .items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.gap-2 { gap: 0.5rem; }
 .gap-4 { gap: 1rem; }
-.gap-6 { gap: 1.5rem; }
-.gap-8 { gap: 2rem; }
 .w-full { width: 100%; }
 
-/* ── MOBILE MENU BUTTON ── */
+/* ── MOBILE MENU ── */
 .mobile-menu-btn {
   display: none;
   background: none;
-  border: 1px solid rgba(180, 148, 60, 0.2);
+  border: 1px solid rgba(201, 168, 76, 0.22);
   color: var(--text-secondary);
-  font-size: 1.5rem;
   cursor: pointer;
   padding: 0.4rem 0.6rem;
   border-radius: 0.4rem;
@@ -326,7 +273,7 @@ img, video {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ── RESPONSIVE GRID CLASSES ── */
+/* ── RESPONSIVE GRIDS ── */
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -334,7 +281,6 @@ img, video {
   align-items: center;
   width: 100%;
 }
-
 .two-col-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -342,107 +288,58 @@ img, video {
   align-items: start;
 }
 
-/* ── PDF VIEWER OVERLAY ── */
+/* ── PDF VIEWER ── */
 .pdf-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  background: rgba(5, 3, 2, 0.94);
-  backdrop-filter: blur(12px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 1rem;
-  overflow-y: auto;
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(4, 4, 9, 0.95);
+  backdrop-filter: blur(14px);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-start;
+  padding: 1rem; overflow-y: auto;
 }
-
 .pdf-overlay-header {
-  display: flex;
-  align-items: center;
+  display: flex; align-items: center;
   justify-content: space-between;
-  width: 100%;
-  max-width: 900px;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
-  background: rgba(14, 10, 6, 0.95);
+  width: 100%; max-width: 900px;
+  padding: 0.75rem 1rem; margin-bottom: 1rem;
+  background: rgba(9, 10, 18, 0.96);
   border: 1px solid var(--glass-border);
-  border-radius: 0.6rem;
-  gap: 1rem;
-  flex-wrap: wrap;
+  border-radius: 0.6rem; gap: 1rem; flex-wrap: wrap;
 }
-
 .pdf-frame-wrap {
-  width: 100%;
-  max-width: 900px;
-  border-radius: 0.6rem;
-  overflow: hidden;
-  border: 1px solid var(--glass-border);
-  background: #fff;
+  width: 100%; max-width: 900px;
+  border-radius: 0.6rem; overflow: hidden;
+  border: 1px solid var(--glass-border); background: #fff;
 }
-
 .pdf-frame-wrap iframe {
-  width: 100%;
-  height: calc(100vh - 160px);
-  min-height: 400px;
-  border: none;
-  display: block;
+  width: 100%; height: calc(100vh - 160px);
+  min-height: 400px; border: none; display: block;
 }
 
-/* ═══════════════════════════════════════════════
-   RESPONSIVE MEDIA QUERIES
-═══════════════════════════════════════════════ */
-
-/* Mobile ≤ 768px */
+/* ═══════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+═══════════════════════════════════════════ */
 @media (max-width: 768px) {
   .nav-links { display: none; }
-  .mobile-menu-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .two-col-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
+  .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
+  .hero-grid  { grid-template-columns: 1fr; gap: 2.5rem; }
+  .two-col-grid { grid-template-columns: 1fr; gap: 2rem; }
   .hero-visual { display: none; }
-
   .section { padding: 3rem 0; }
-
   .got-divider { margin-bottom: 2rem; }
-
   .glass-card { padding: 1.25rem; }
-
-  .pdf-frame-wrap iframe {
-    height: calc(100vh - 180px);
-  }
+  .pdf-frame-wrap iframe { height: calc(100vh - 180px); }
 }
-
-/* Small phones ≤ 480px */
 @media (max-width: 480px) {
   .container { padding: 0 0.875rem; }
-
-  .heading-xl { font-size: 1.75rem; line-height: 1.2; }
+  .heading-xl { font-size: 1.75rem; }
   .heading-lg { font-size: 1.45rem; }
   .heading-md { font-size: 1.1rem; }
-
   .btn { padding: 0.7rem 1.1rem; font-size: 0.76rem; }
-
   .glass-card { padding: 1rem; border-radius: 0.85rem; }
-
   .section { padding: 2.5rem 0; }
-
   .pdf-overlay-header { flex-direction: column; align-items: flex-start; }
 }
-
-/* Tablet 769–1024px */
 @media (min-width: 769px) and (max-width: 1024px) {
   .hero-grid { gap: 2.5rem; }
   .two-col-grid { gap: 2.5rem; }
@@ -450,8 +347,6 @@ img, video {
   .nav-links { gap: 1.2rem; }
   .nav-link { font-size: 0.78rem; }
 }
-
-/* Large desktop ≥ 1440px */
 @media (min-width: 1440px) {
   .container { max-width: 1300px; }
 }
