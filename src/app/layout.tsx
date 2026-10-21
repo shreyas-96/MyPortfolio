@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import GotBackground from "@/components/GotBackground";
@@ -8,6 +8,14 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 export const metadata: Metadata = {
     title: "Shreyas Chudmunge | Android & Java Developer",
     description: "Portfolio of Shreyas Chudmunge — Android and Java Developer forging robust mobile applications, Firebase architectures, and high-performance software.",
+};
+
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+    viewportFit: 'cover',   // iOS notch / Dynamic Island support
 };
 
 export default function RootLayout({

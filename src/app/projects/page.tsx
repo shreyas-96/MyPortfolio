@@ -85,7 +85,7 @@ export default function Projects() {
                             style={{
                                 display: 'grid',
                                 gridTemplateColumns: '1fr 1fr',
-                                gap: '4rem',
+                                gap: 'clamp(2rem, 5vw, 4rem)',
                                 alignItems: 'center'
                             }}
                             className="project-row"
@@ -168,14 +168,15 @@ export default function Projects() {
                                 transition={{ duration: 0.3 }}
                             >
                                 <div style={{
-                                    width: '300px',
-                                    height: '600px',
+                                    width: 'clamp(200px, 45vw, 300px)',
+                                    height: 'clamp(400px, 90vw, 600px)',
                                     borderRadius: '1.75rem',
-                                    boxShadow: '0 25px 60px -12px rgba(0, 0, 0, 0.75), 0 0 35px rgba(212, 175, 55, 0.2)',
+                                    boxShadow: '0 25px 60px -12px rgba(0,0,0,0.75), 0 0 35px rgba(201,168,76,0.2)',
                                     position: 'relative',
                                     overflow: 'hidden',
-                                    border: '2px solid rgba(212, 175, 55, 0.35)',
-                                    background: '#04060b'
+                                    border: '2px solid rgba(201,168,76,0.35)',
+                                    background: '#04060b',
+                                    maxWidth: '300px',
                                 }}>
                                     <AnimatePresence mode="wait">
                                         <motion.div
@@ -234,10 +235,15 @@ export default function Projects() {
           @media (max-width: 768px) {
             .project-row {
               grid-template-columns: 1fr !important;
-              gap: 3rem !important;
+              gap: 2.5rem !important;
             }
-            .project-info {
-              order: 2 !important;
+            .project-row > div {
+              order: unset !important;
+            }
+          }
+          @media (max-width: 480px) {
+            .project-row {
+              gap: 2rem !important;
             }
           }
         `

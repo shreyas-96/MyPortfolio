@@ -1,7 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cinzel+Decorative:wght@700&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
+/* ── iOS / Android Universal Fixes ──────────────────────────
+   Applied before all other rules so they cascade correctly  */
+
+/* Prevent iOS tap flash on all interactive elements */
+a, button, [role="button"], input, select, textarea, label {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text size boost on orientation change (iOS/Android) */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Momentum scrolling on iOS (feels native) */
+body, .page-wrapper, main {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent pull-to-refresh / overscroll bounce */
+body {
+  overscroll-behavior: none;
+}
+
+/* Min font-size 16px on inputs = prevents iOS auto-zoom on focus */
+input, select, textarea {
+  font-size: max(16px, 1rem) !important;
+}
+
+/* Canvas GPU compositing hint */
+canvas {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Safe area padding for iOS notch / Dynamic Island / Android cutouts */
+.navbar, .page-wrapper, .container {
+  padding-left: max(var(--container-px, 1rem), env(safe-area-inset-left));
+  padding-right: max(var(--container-px, 1rem), env(safe-area-inset-right));
+}
+
+.navbar {
+  padding-top: max(0px, env(safe-area-inset-top));
+}
+
+footer {
+  padding-bottom: max(2.5rem, calc(2.5rem + env(safe-area-inset-bottom)));
+}
+
+/* Use dynamic viewport height (accounts for mobile browser chrome) */
+.hero-min-height {
+  min-height: 100dvh;
+}
+
 /* ═══════════════════════════════════════════════
    PROFESSIONAL PALETTE — Deep Midnight + Royal Gold
+
    Background: Deep space black-navy
    Accent:     Royal antique gold
    Text:       Warm cream / soft ivory
