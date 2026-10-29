@@ -2,7 +2,7 @@
 
 import PageTransition from '@/components/PageTransition';
 import { motion } from 'framer-motion';
-import { Mail, Send } from 'lucide-react';
+import { Mail, Send, Zap } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 export default function Contact() {
@@ -10,14 +10,16 @@ export default function Contact() {
         <PageTransition>
             <section className="section container">
                 <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-                    <h1 className="heading-lg">Send A Raven</h1>
-                    <div className="got-divider"><span>⚔</span></div>
-                    <p className="text-body" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>
-                        Have an app idea? Let&apos;s forge your vision into a working mobile application.
+                    <div className="badge-red" style={{ display: 'inline-flex', marginBottom: '1rem' }}>
+                        <Zap size={12} /> Let&apos;s Connect
+                    </div>
+                    <h1 className="heading-lg">Get In <span className="text-gradient">Touch</span></h1>
+                    <div className="got-divider"><span>◆</span></div>
+                    <p className="text-body" style={{ fontSize: 'clamp(1rem, 2.5vw, 1.15rem)' }}>
+                        Have an app idea? Let&apos;s turn your vision into a working mobile application.
                     </p>
                 </div>
 
-                {/* Responsive two-col: info left, form right */}
                 <div className="contact-grid">
                     {/* Direct Channels */}
                     <motion.div
@@ -31,24 +33,24 @@ export default function Contact() {
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
                             {[
-                                { icon: <Mail color="var(--accent-gold)" size={22} />, label: 'EMAIL', href: 'mailto:chudmungeshreyas0096@gmail.com', text: 'chudmungeshreyas0096@gmail.com' },
-                                { icon: <FaGithub color="var(--accent-gold)" size={22} />, label: 'GITHUB', href: 'https://github.com/shreyas-96', text: 'github.com/shreyas-96' },
-                                { icon: <FaLinkedin color="var(--accent-gold)" size={22} />, label: 'LINKEDIN', href: 'https://linkedin.com/in/shreyaschudmunge96', text: 'linkedin.com/in/shreyaschudmunge96' },
+                                { icon: <Mail color="#E62429" size={22} />, label: 'EMAIL', href: 'mailto:chudmungeshreyas0096@gmail.com', text: 'chudmungeshreyas0096@gmail.com', bg: 'rgba(230,36,41,0.1)', border: 'rgba(230,36,41,0.25)' },
+                                { icon: <FaGithub color="#D9A441" size={22} />, label: 'GITHUB', href: 'https://github.com/shreyas-96', text: 'github.com/shreyas-96', bg: 'rgba(217,164,65,0.1)', border: 'rgba(217,164,65,0.25)' },
+                                { icon: <FaLinkedin color="#38BDF8" size={22} />, label: 'LINKEDIN', href: 'https://linkedin.com/in/shreyaschudmunge96', text: 'linkedin.com/in/shreyaschudmunge96', bg: 'rgba(56,189,248,0.08)', border: 'rgba(56,189,248,0.22)' },
                             ].map(channel => (
                                 <div key={channel.label} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                     <div style={{
                                         padding: '0.85rem',
-                                        background: 'rgba(201,168,76,0.10)',
-                                        border: '1px solid rgba(201,168,76,0.25)',
+                                        background: channel.bg,
+                                        border: `1px solid ${channel.border}`,
                                         borderRadius: '0.75rem',
                                         flexShrink: 0,
                                         minWidth: '50px', minHeight: '50px',
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     }}>
                                         {channel.icon}
                                     </div>
                                     <div style={{ minWidth: 0 }}>
-                                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', fontFamily: 'Cinzel, serif', letterSpacing: '0.05em' }}>{channel.label}</p>
+                                        <p style={{ fontFamily: 'Rajdhani, sans-serif', color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}>{channel.label}</p>
                                         <a
                                             href={channel.href}
                                             target={channel.href.startsWith('mailto') ? undefined : '_blank'}
@@ -62,7 +64,7 @@ export default function Contact() {
                             ))}
                         </div>
 
-                        <div style={{ marginTop: 'auto', paddingTop: '2rem', borderTop: '1px solid var(--glass-border)' }}>
+                        <div style={{ marginTop: 'auto', paddingTop: '2rem', borderTop: '1px solid rgba(230,36,41,0.15)' }}>
                             <p className="text-body" style={{ fontSize: '0.9rem', lineHeight: 1.6 }}>
                                 Available for freelance contracts, mobile development consultations, and full-time engineering roles.
                             </p>
@@ -75,58 +77,61 @@ export default function Contact() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                         className="glass-card"
+                        style={{ border: '1px solid rgba(230,36,41,0.18)' }}
                     >
+                        {/* Top red line */}
+                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, rgba(230,36,41,0.5), transparent)', borderRadius: '1rem 1rem 0 0' }} />
+
                         <form style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                            {/* Name + Email row */}
                             <div className="form-row">
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                    <label htmlFor="contact-name" style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', fontFamily: 'Cinzel, serif' }}>Your Name</label>
+                                    <label htmlFor="contact-name" style={{ fontFamily: 'Rajdhani, sans-serif', color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Your Name</label>
                                     <input
                                         type="text"
                                         id="contact-name"
-                                        placeholder="Lord Stark / John Doe"
+                                        placeholder="John Doe"
                                         style={{
-                                            width: '100%', padding: '1rem',
-                                            background: 'rgba(6,7,14,0.75)',
-                                            border: '1px solid var(--glass-border)',
+                                            width: '100%', padding: '0.9rem',
+                                            background: 'rgba(8,11,20,0.7)',
+                                            border: '1px solid rgba(217,164,65,0.18)',
                                             borderRadius: '0.75rem',
                                             color: 'var(--text-primary)',
                                             outline: 'none', fontFamily: 'Inter, sans-serif',
-                                            fontSize: '1rem',
+                                            fontSize: '0.95rem',
                                         }}
                                     />
                                 </div>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                    <label htmlFor="contact-email" style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', fontFamily: 'Cinzel, serif' }}>Your Email</label>
+                                    <label htmlFor="contact-email" style={{ fontFamily: 'Rajdhani, sans-serif', color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Your Email</label>
                                     <input
                                         type="email"
                                         id="contact-email"
-                                        placeholder="john@realm.com"
+                                        placeholder="john@example.com"
                                         style={{
-                                            width: '100%', padding: '1rem',
-                                            background: 'rgba(6,7,14,0.75)',
-                                            border: '1px solid var(--glass-border)',
+                                            width: '100%', padding: '0.9rem',
+                                            background: 'rgba(8,11,20,0.7)',
+                                            border: '1px solid rgba(217,164,65,0.18)',
                                             borderRadius: '0.75rem',
                                             color: 'var(--text-primary)',
                                             outline: 'none', fontFamily: 'Inter, sans-serif',
-                                            fontSize: '1rem',
+                                            fontSize: '0.95rem',
                                         }}
                                     />
                                 </div>
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                <label htmlFor="contact-scope" style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', fontFamily: 'Cinzel, serif' }}>Project Scope</label>
+                                <label htmlFor="contact-scope" style={{ fontFamily: 'Rajdhani, sans-serif', color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Project Scope</label>
                                 <select
                                     id="contact-scope"
                                     style={{
-                                        width: '100%', padding: '1rem',
-                                        background: 'rgba(6,7,14,0.75)',
-                                        border: '1px solid var(--glass-border)',
+                                        width: '100%', padding: '0.9rem',
+                                        background: 'rgba(8,11,20,0.7)',
+                                        border: '1px solid rgba(217,164,65,0.18)',
                                         borderRadius: '0.75rem',
                                         color: 'var(--text-primary)',
                                         outline: 'none', fontFamily: 'Inter, sans-serif',
-                                        fontSize: '1rem', appearance: 'none',
+                                        fontSize: '0.95rem', appearance: 'none',
                                     }}
                                 >
                                     <option value="android">Native Android App Development</option>
@@ -138,26 +143,26 @@ export default function Contact() {
                             </div>
 
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                <label htmlFor="contact-message" style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', fontFamily: 'Cinzel, serif' }}>Message Details</label>
+                                <label htmlFor="contact-message" style={{ fontFamily: 'Rajdhani, sans-serif', color: 'var(--text-muted)', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Message Details</label>
                                 <textarea
                                     id="contact-message"
                                     rows={5}
                                     placeholder="Describe your mobile application requirements..."
                                     style={{
-                                        width: '100%', padding: '1rem',
-                                        background: 'rgba(6,7,14,0.75)',
-                                        border: '1px solid var(--glass-border)',
+                                        width: '100%', padding: '0.9rem',
+                                        background: 'rgba(8,11,20,0.7)',
+                                        border: '1px solid rgba(217,164,65,0.18)',
                                         borderRadius: '0.75rem',
                                         color: 'var(--text-primary)',
                                         outline: 'none', resize: 'vertical',
                                         fontFamily: 'Inter, sans-serif',
-                                        fontSize: '1rem', minHeight: '130px',
+                                        fontSize: '0.95rem', minHeight: '130px',
                                     }}
                                 />
                             </div>
 
                             <button type="button" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
-                                Dispatch Message <Send size={18} />
+                                Send Message <Send size={18} />
                             </button>
                         </form>
                     </motion.div>
@@ -180,8 +185,8 @@ export default function Contact() {
                         color: var(--text-muted);
                     }
                     input:focus, textarea:focus, select:focus {
-                        border-color: rgba(201,168,76,0.45) !important;
-                        box-shadow: 0 0 0 3px rgba(201,168,76,0.08);
+                        border-color: rgba(230,36,41,0.5) !important;
+                        box-shadow: 0 0 0 3px rgba(230,36,41,0.1);
                     }
                     @media (max-width: 768px) {
                         .contact-grid {

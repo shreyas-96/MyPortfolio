@@ -31,16 +31,19 @@ export default function Navbar() {
         <nav
             className="navbar"
             style={{
-                background: scrolled ? 'rgba(6, 9, 17, 0.95)' : 'rgba(6, 9, 17, 0.65)',
+                background: scrolled ? 'rgba(8, 11, 20, 0.96)' : 'rgba(8, 11, 20, 0.70)',
                 padding: scrolled ? '0.4rem 0' : '0.5rem 0',
-                borderBottom: scrolled ? '1px solid var(--glass-border)' : '1px solid transparent',
-                backdropFilter: 'blur(16px)',
+                borderBottom: scrolled
+                    ? '1px solid rgba(230, 36, 41, 0.22)'
+                    : '1px solid transparent',
+                backdropFilter: 'blur(18px)',
+                boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.5)' : 'none',
             }}
         >
             <div className="container nav-container">
                 <Link href="/" className="logo">
                     <span>Shreyas</span>
-                    <span style={{ color: 'var(--accent-color)' }}>.dev</span>
+                    <span style={{ color: 'var(--accent-red)' }}>.dev</span>
                 </Link>
 
                 <div className="nav-links">
@@ -56,10 +59,10 @@ export default function Navbar() {
                                     layoutId="underline"
                                     style={{
                                         height: '2px',
-                                        background: 'var(--accent-gradient)',
+                                        background: 'linear-gradient(90deg, #E62429, #D9A441)',
                                         marginTop: '4px',
                                         borderRadius: '2px',
-                                        boxShadow: '0 0 8px rgba(212, 175, 55, 0.5)',
+                                        boxShadow: '0 0 10px rgba(230, 36, 41, 0.6)',
                                     }}
                                 />
                             )}
@@ -68,9 +71,9 @@ export default function Navbar() {
                     <Link
                         href="/contact"
                         className="btn btn-primary"
-                        style={{ padding: '0.6rem 1.3rem', fontSize: '0.85rem' }}
+                        style={{ padding: '0.55rem 1.3rem', fontSize: '0.82rem' }}
                     >
-                        Let&apos;s Work Together
+                        Let&apos;s Connect
                     </Link>
                 </div>
 
@@ -95,9 +98,9 @@ export default function Navbar() {
                             top: '100%',
                             left: 0,
                             right: 0,
-                            background: 'rgba(6, 9, 17, 0.96)',
-                            backdropFilter: 'blur(20px)',
-                            borderBottom: '1px solid var(--glass-border)',
+                            background: 'rgba(8, 11, 20, 0.97)',
+                            backdropFilter: 'blur(22px)',
+                            borderBottom: '1px solid rgba(230, 36, 41, 0.18)',
                             overflow: 'hidden',
                         }}
                     >
@@ -119,7 +122,7 @@ export default function Navbar() {
                                 style={{ width: '100%', marginTop: '1rem' }}
                                 onClick={() => setMobileMenuOpen(false)}
                             >
-                                Let&apos;s Work Together
+                                Let&apos;s Connect
                             </Link>
                         </div>
                     </motion.div>

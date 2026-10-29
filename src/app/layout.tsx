@@ -32,11 +32,11 @@ export default function RootLayout({
                     {children}
                 </main>
                 <footer style={{
-                    borderTop: '1px solid var(--glass-border)',
+                    borderTop: '1px solid rgba(230, 36, 41, 0.15)',
                     padding: '3.5rem 0 2.5rem',
                     marginTop: 'auto',
-                    background: 'rgba(6, 9, 17, 0.88)',
-                    backdropFilter: 'blur(16px)',
+                    background: 'rgba(8, 11, 20, 0.90)',
+                    backdropFilter: 'blur(18px)',
                     position: 'relative',
                     zIndex: 1,
                 }}>
@@ -48,25 +48,20 @@ export default function RootLayout({
                     }}>
                         <div style={{ textAlign: 'center' }}>
                             <h3 style={{ fontFamily: 'Cinzel, serif', fontSize: '1.6rem', fontWeight: 700, color: 'var(--text-primary)', letterSpacing: '0.06em' }}>
-                                Shreyas<span style={{ color: 'var(--accent-color)' }}>.dev</span>
+                                Shreyas<span style={{ color: 'var(--accent-red)' }}>.dev</span>
                             </h3>
-                            <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', fontSize: '0.95rem' }}>
-                                Forging Native Android & Java Software Realms
+                            <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', fontSize: '0.92rem' }}>
+                                Building Native Android &amp; Java Mobile Applications
                             </p>
                         </div>
 
-                        {/* Medieval divider accent */}
+                        {/* Cinematic divider */}
                         <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.75rem',
-                            color: 'var(--accent-color)',
-                            fontSize: '0.85rem'
-                        }}>
-                            <span style={{ width: '40px', height: '1px', background: 'var(--glass-border)' }}></span>
-                            <span>⚔</span>
-                            <span style={{ width: '40px', height: '1px', background: 'var(--glass-border)' }}></span>
-                        </div>
+                            width: '80px', height: '2px',
+                            background: 'linear-gradient(90deg, #E62429, #D9A441)',
+                            borderRadius: '2px',
+                            boxShadow: '0 0 10px rgba(230, 36, 41, 0.4)',
+                        }} />
 
                         <div style={{ display: 'flex', gap: '1.5rem' }}>
                             <a

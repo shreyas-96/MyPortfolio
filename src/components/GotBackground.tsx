@@ -2,29 +2,32 @@
 
 import React, { useEffect, useRef } from 'react';
 
-// ── SNOWFLAKE TYPES ──
-interface Snowflake {
+/* ─────────────────────────────────────────────────────────
+   MARVEL CINEMATIC BACKGROUND
+   Iron Man energy field — crimson & gold particles,
+   hexagonal grid, ambient scan lines
+───────────────────────────────────────────────────────── */
+
+interface Particle {
     x: number;
     y: number;
-    size: number;       // radius in px
-    speed: number;      // fall speed
+    size: number;
+    vx: number;
+    vy: number;
     alpha: number;
-    drift: number;      // current horizontal offset angle
-    driftSpeed: number; // sine wave speed for drift
-    driftAmp: number;   // how far left/right it drifts
-    rotation: number;   // for crystal flakes
-    rotSpeed: number;
-    type: 'dot' | 'crystal'; // small dots vs 6-arm crystals
-    twinkle: number;    // twinkle phase
-    twinkleSpeed: number;
+    maxAlpha: number;
+    hue: number;       // 0 = red, 44 = gold
+    life: number;
+    maxLife: number;
+    type: 'energy' | 'ember';
 }
 
-// Dust mote interface (kept for background warmth)
-interface Particle {
-    x: number; y: number; size: number;
-    vx: number; vy: number; alpha: number;
-    maxAlpha: number; hue: number;
-    saturation: number; wobble: number; wobbleSpeed: number; life: number;
+interface GridNode {
+    x: number;
+    y: number;
+    alpha: number;
+    pulsePhase: number;
+    pulseSpeed: number;
 }
 
 export default function GotBackground() {
@@ -43,255 +46,179 @@ export default function GotBackground() {
         const handleResize = () => {
             width  = canvas.width  = window.innerWidth;
             height = canvas.height = window.innerHeight;
+            buildGrid();
         };
         window.addEventListener('resize', handleResize);
 
-        // ─────────────────────────────────────
-        //  SNOWFLAKES
-        // ─────────────────────────────────────
-        const SNOW_COUNT = 160;
-        const snowflakes: Snowflake[] = [];
+        // ── HEX GRID ──────────────────────────────────────
+        const GRID_SIZE = 72;
+        const gridNodes: GridNode[] = [];
 
-        function createSnowflake(startFromTop = false): Snowflake {
-            const size = Math.random();
-            // Size buckets:
-            //  0.0–0.55  → tiny dot  (0.8–2.2px)
-            //  0.55–0.85 → medium dot (2.2–3.8px)
-            //  0.85–1.0  → crystal   (4–7px, draws 6-arm shape)
-            let radius: number;
-            let type: 'dot' | 'crystal';
-            if (size < 0.55) {
-                radius = 0.8 + size * 2.5;
-                type   = 'dot';
-            } else if (size < 0.85) {
-                radius = 2.2 + (size - 0.55) * 5;
-                type   = 'dot';
-            } else {
-                radius = 4 + (size - 0.85) * 20;
-                type   = 'crystal';
+        function buildGrid() {
+            gridNodes.length = 0;
+            const cols = Math.ceil(width  / GRID_SIZE) + 2;
+            const rows = Math.ceil(height / GRID_SIZE) + 2;
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const offset = (r % 2) * (GRID_SIZE / 2);
+                    gridNodes.push({
+                        x: c * GRID_SIZE + offset - GRID_SIZE,
+                        y: r * GRID_SIZE - GRID_SIZE,
+                        alpha: 0.015 + Math.random() * 0.03,
+                        pulsePhase: Math.random() * Math.PI * 2,
+                        pulseSpeed: 0.006 + Math.random() * 0.012,
+                    });
+                }
             }
+        }
+        buildGrid();
 
-            // Larger flakes fall faster and are more opaque — parallax depth feel
-            const speed = 0.28 + radius * 0.22 + Math.random() * 0.35;
-            const alpha = 0.18 + radius * 0.06 + Math.random() * 0.25;
+        // ── ENERGY PARTICLES ──────────────────────────────
+        const PARTICLE_COUNT = 55;
+        const particles: Particle[] = [];
 
+        function createParticle(warm = false): Particle {
+            // Mostly red/orange, occasionally gold
+            const isGold = Math.random() < (warm ? 0.55 : 0.22);
+            const hue    = isGold ? 40 + Math.random() * 12 : -5 + Math.random() * 10;
             return {
-                x: Math.random() * (width + 40) - 20,
-                y: startFromTop ? -radius - Math.random() * height * 0.5 : Math.random() * height,
-                size: radius,
-                speed,
-                alpha: Math.min(alpha, 0.85),
-                drift: Math.random() * Math.PI * 2,
-                driftSpeed: 0.004 + Math.random() * 0.008,
-                driftAmp:   0.2 + Math.random() * 0.6,
-                rotation: Math.random() * Math.PI * 2,
-                rotSpeed:  (Math.random() - 0.5) * 0.012,
-                type,
-                twinkle: Math.random() * Math.PI * 2,
-                twinkleSpeed: 0.025 + Math.random() * 0.045,
+                x:        Math.random() * width,
+                y:        Math.random() * height,
+                size:     0.6 + Math.random() * 2.2,
+                vx:       (Math.random() - 0.5) * 0.22,
+                vy:       -(0.12 + Math.random() * 0.36),
+                alpha:    0,
+                maxAlpha: 0.06 + Math.random() * 0.14,
+                hue,
+                life:     0,
+                maxLife:  180 + Math.floor(Math.random() * 240),
+                type:     Math.random() < 0.15 ? 'ember' : 'energy',
             };
         }
 
-        // Initialise snowflakes scattered across full screen
-        for (let i = 0; i < SNOW_COUNT; i++) {
-            snowflakes.push(createSnowflake(false));
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            const p = createParticle();
+            p.life = Math.floor(Math.random() * p.maxLife);
+            particles.push(p);
         }
 
-        // Draw a 6-armed snowflake crystal
-        function drawCrystal(x: number, y: number, r: number, rot: number, alpha: number) {
-            if (!ctx) return;
-            ctx.save();
-            ctx.translate(x, y);
-            ctx.rotate(rot);
-            ctx.globalAlpha = alpha;
+        // ── AMBIENT GLOW ORBS ─────────────────────────────
+        interface Orb { cx: number; cy: number; r: number; hue: number; phase: number; speed: number; baseAlpha: number; }
+        const orbs: Orb[] = [
+            { cx: 0.85, cy: 0.08, r: 0.38, hue: 0,  phase: 0,    speed: 0.003, baseAlpha: 0.07 },  // top-right red
+            { cx: 0.10, cy: 0.80, r: 0.30, hue: 40, phase: 1.5,  speed: 0.004, baseAlpha: 0.05 },  // bottom-left gold
+            { cx: 0.50, cy: 0.50, r: 0.60, hue: 0,  phase: 0.8,  speed: 0.002, baseAlpha: 0.02 },  // centre subtle red
+        ];
 
-            const arms = 6;
-            for (let i = 0; i < arms; i++) {
-                const angle = (Math.PI * 2 / arms) * i;
-                ctx.save();
-                ctx.rotate(angle);
-
-                // Main arm
-                ctx.beginPath();
-                ctx.moveTo(0, 0);
-                ctx.lineTo(0, -r);
-                ctx.strokeStyle = 'rgba(210, 230, 255, 1)';
-                ctx.lineWidth   = Math.max(0.5, r * 0.14);
-                ctx.lineCap     = 'round';
-                ctx.stroke();
-
-                // Two side branches at 60% and 80% of arm length
-                [0.55, 0.78].forEach(frac => {
-                    const branchLen = r * 0.38;
-                    const branchY   = -r * frac;
-                    ctx.beginPath();
-                    ctx.moveTo(0, branchY);
-                    ctx.lineTo( branchLen * 0.70, branchY - branchLen * 0.70);
-                    ctx.strokeStyle = 'rgba(200, 225, 255, 0.85)';
-                    ctx.lineWidth   = Math.max(0.4, r * 0.09);
-                    ctx.stroke();
-
-                    ctx.beginPath();
-                    ctx.moveTo(0, branchY);
-                    ctx.lineTo(-branchLen * 0.70, branchY - branchLen * 0.70);
-                    ctx.stroke();
-                });
-
-                ctx.restore();
-            }
-
-            // Centre dot
-            ctx.beginPath();
-            ctx.arc(0, 0, r * 0.16, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(220, 240, 255, 0.9)';
-            ctx.fill();
-
-            ctx.globalAlpha = 1;
-            ctx.restore();
-        }
-
-        // Draw a simple circular snowdot with soft glow
-        function drawDot(x: number, y: number, r: number, alpha: number) {
-            if (!ctx) return;
-            const grd = ctx.createRadialGradient(x, y, 0, x, y, r * 2.2);
-            grd.addColorStop(0,   `rgba(230, 242, 255, ${alpha})`);
-            grd.addColorStop(0.4, `rgba(210, 232, 255, ${alpha * 0.65})`);
-            grd.addColorStop(1,   `rgba(190, 220, 255, 0)`);
-            ctx.fillStyle = grd;
-            ctx.beginPath();
-            ctx.arc(x, y, r * 2.0, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        // ─────────────────────────────────────
-        //  WARM GOLD DUST MOTES (background depth)
-        // ─────────────────────────────────────
-        const DUST_COUNT = 28;
-        const dustMotes: Particle[] = [];
-
-        function createDust(): Particle {
-            const hueOpts = [44, 40, 48, 36, 52];
-            return {
-                x: Math.random() * width,
-                y: height * 0.45 + Math.random() * height * 0.55,
-                size: 0.6 + Math.random() * 1.4,
-                vx: (Math.random() - 0.5) * 0.18,
-                vy: -(0.08 + Math.random() * 0.30),
-                alpha: Math.random() * 0.08,
-                maxAlpha: 0.04 + Math.random() * 0.08,
-                hue: hueOpts[Math.floor(Math.random() * hueOpts.length)],
-                saturation: 65 + Math.random() * 20,
-                wobble: Math.random() * Math.PI * 2,
-                wobbleSpeed: 0.006 + Math.random() * 0.01,
-                life: Math.floor(Math.random() * 200),
-            };
-        }
-
-        for (let i = 0; i < DUST_COUNT; i++) dustMotes.push(createDust());
+        // ── SCAN LINES ────────────────────────────────────
+        let scanY = -height * 0.3;
 
         let phase = 0;
 
+        // ── RENDER LOOP ───────────────────────────────────
         const render = () => {
             if (!ctx) return;
             ctx.clearRect(0, 0, width, height);
-            phase += 0.001;
+            phase += 0.008;
 
-            // ── ATMOSPHERIC GLOWS ──
+            // ── Ambient orbs ──
+            for (const orb of orbs) {
+                orb.phase += orb.speed;
+                const pulse = 0.75 + 0.25 * Math.sin(orb.phase);
+                const cx = orb.cx * width  + Math.cos(orb.phase * 0.6) * 30;
+                const cy = orb.cy * height + Math.sin(orb.phase * 0.8) * 20;
+                const r  = orb.r  * width;
 
-            // Bottom warm gold
-            const warmG = ctx.createRadialGradient(width * 0.5, height * 1.05, 0, width * 0.5, height * 1.05, width * 0.72);
-            warmG.addColorStop(0,   'rgba(160, 118, 30, 0.07)');
-            warmG.addColorStop(0.5, 'rgba(100, 72,  16, 0.035)');
-            warmG.addColorStop(1,   'rgba(0, 0, 0, 0)');
-            ctx.fillStyle = warmG;
-            ctx.fillRect(0, 0, width, height);
+                const isRed = orb.hue < 20;
+                const inner = isRed ? `rgba(230,36,41,${orb.baseAlpha * pulse})` : `rgba(217,164,65,${orb.baseAlpha * pulse})`;
+                const mid   = isRed ? `rgba(180,20,24,${orb.baseAlpha * 0.4 * pulse})` : `rgba(160,120,40,${orb.baseAlpha * 0.3 * pulse})`;
 
-            // Top-right deep indigo (night sky)
-            const ix = width  * 0.88 + Math.cos(phase * 0.7) * 20;
-            const iy = height * 0.10 + Math.sin(phase * 0.9) * 14;
-            const indigoG = ctx.createRadialGradient(ix, iy, 0, ix, iy, width * 0.45);
-            indigoG.addColorStop(0,   'rgba(32, 42, 100, 0.09)');
-            indigoG.addColorStop(0.5, 'rgba(20, 28,  72, 0.04)');
-            indigoG.addColorStop(1,   'rgba(0, 0, 0, 0)');
-            ctx.fillStyle = indigoG;
-            ctx.fillRect(0, 0, width, height);
+                const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+                grd.addColorStop(0,   inner);
+                grd.addColorStop(0.5, mid);
+                grd.addColorStop(1,   'transparent');
+                ctx.fillStyle = grd;
+                ctx.fillRect(0, 0, width, height);
+            }
 
-            // Left deep blue
-            const leftG = ctx.createRadialGradient(width * 0.06, height * 0.50, 0, width * 0.06, height * 0.50, width * 0.28);
-            leftG.addColorStop(0, 'rgba(22, 30, 72, 0.06)');
-            leftG.addColorStop(1, 'rgba(0, 0, 0, 0)');
-            ctx.fillStyle = leftG;
-            ctx.fillRect(0, 0, width, height);
-
-            // Horizontal haze
-            const hazeY = height * 0.58 + Math.sin(phase * 1.2) * 16;
-            const hg    = ctx.createLinearGradient(0, hazeY - 65, 0, hazeY + 65);
-            hg.addColorStop(0,   'transparent');
-            hg.addColorStop(0.5, 'rgba(30, 38, 80, 0.015)');
-            hg.addColorStop(1,   'transparent');
-            ctx.fillStyle = hg;
-            ctx.fillRect(0, hazeY - 65, width, 130);
-
-            // ── GOLD DUST MOTES ──
-            for (let i = dustMotes.length - 1; i >= 0; i--) {
-                const p = dustMotes[i];
-                p.wobble += p.wobbleSpeed;
-                p.x += p.vx + Math.sin(p.wobble) * 0.12;
-                p.y += p.vy;
-                p.life++;
-                p.alpha = p.maxAlpha * (0.55 + 0.45 * Math.sin(p.wobble * 0.5));
-
-                ctx.save();
+            // ── Grid nodes pulse ──
+            for (const node of gridNodes) {
+                node.pulsePhase += node.pulseSpeed;
+                const a = node.alpha * (0.6 + 0.4 * Math.sin(node.pulsePhase));
+                ctx.fillStyle = `rgba(217,164,65,${a})`;
                 ctx.beginPath();
-                const dg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2);
-                dg.addColorStop(0,   `hsla(${p.hue}, ${p.saturation}%, 76%, ${p.alpha})`);
-                dg.addColorStop(1,   `hsla(${p.hue}, ${p.saturation}%, 40%, 0)`);
-                ctx.fillStyle = dg;
-                ctx.arc(p.x, p.y, p.size * 1.8, 0, Math.PI * 2);
+                ctx.arc(node.x, node.y, 1, 0, Math.PI * 2);
                 ctx.fill();
-                ctx.restore();
-
-                if (p.y < -20 || p.x < -40 || p.x > width + 40) {
-                    dustMotes[i] = createDust();
-                }
             }
 
-            // ─────────────────────────────────
-            //  SNOWFALL
-            // ─────────────────────────────────
-            for (let i = 0; i < snowflakes.length; i++) {
-                const sf = snowflakes[i];
+            // ── Energy particles ──
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                p.life++;
+                p.x += p.vx + Math.sin(phase + i * 0.4) * 0.08;
+                p.y += p.vy;
 
-                // Move
-                sf.drift    += sf.driftSpeed;
-                sf.rotation += sf.rotSpeed;
-                sf.twinkle  += sf.twinkleSpeed;
+                // Fade in/out
+                const t = p.life / p.maxLife;
+                p.alpha = t < 0.2
+                    ? p.maxAlpha * (t / 0.2)
+                    : t > 0.75
+                        ? p.maxAlpha * ((1 - t) / 0.25)
+                        : p.maxAlpha;
 
-                sf.y += sf.speed;
-                sf.x += Math.sin(sf.drift) * sf.driftAmp;
+                if (p.life >= p.maxLife || p.y < -20 || p.x < -20 || p.x > width + 20) {
+                    particles[i] = createParticle();
+                    continue;
+                }
 
-                // Twinkle — alpha breathes gently
-                const twinkleFactor = 0.78 + 0.22 * Math.sin(sf.twinkle);
-                const drawAlpha     = sf.alpha * twinkleFactor;
+                const isGold = p.hue > 20;
+                const r = isGold ? 217 : 230;
+                const g = isGold ? 164 : 36;
+                const b = isGold ?  65 : 41;
 
-                // Draw
-                if (sf.type === 'crystal') {
-                    drawCrystal(sf.x, sf.y, sf.size, sf.rotation, drawAlpha);
+                if (p.type === 'ember') {
+                    // Bright ember dot
+                    ctx.save();
+                    ctx.globalAlpha = p.alpha * 1.8;
+                    ctx.fillStyle = `rgb(${r},${g},${b})`;
+                    ctx.shadowColor = `rgba(${r},${g},${b},0.8)`;
+                    ctx.shadowBlur  = 6;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size * 0.5, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
                 } else {
-                    drawDot(sf.x, sf.y, sf.size, drawAlpha);
+                    // Soft glow orb
+                    const pg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 2.5);
+                    pg.addColorStop(0,   `rgba(${r},${g},${b},${p.alpha})`);
+                    pg.addColorStop(0.5, `rgba(${r},${g},${b},${p.alpha * 0.5})`);
+                    pg.addColorStop(1,   'transparent');
+                    ctx.fillStyle = pg;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size * 2.5, 0, Math.PI * 2);
+                    ctx.fill();
                 }
-
-                // Recycle when off-screen
-                if (sf.y > height + sf.size + 5) {
-                    const fresh = createSnowflake(true);
-                    // Reset to top
-                    fresh.y = -fresh.size - Math.random() * 30;
-                    snowflakes[i] = fresh;
-                }
-                // Wrap horizontal
-                if (sf.x < -sf.size - 20) sf.x = width + sf.size;
-                if (sf.x > width + sf.size + 20) sf.x = -sf.size;
             }
+
+            // ── Horizontal scan line ──
+            scanY += 0.55;
+            if (scanY > height * 1.3) scanY = -height * 0.3;
+
+            const sg = ctx.createLinearGradient(0, scanY - 80, 0, scanY + 80);
+            sg.addColorStop(0,    'transparent');
+            sg.addColorStop(0.45, `rgba(230,36,41,0.018)`);
+            sg.addColorStop(0.5,  `rgba(230,36,41,0.035)`);
+            sg.addColorStop(0.55, `rgba(230,36,41,0.018)`);
+            sg.addColorStop(1,    'transparent');
+            ctx.fillStyle = sg;
+            ctx.fillRect(0, scanY - 80, width, 160);
+
+            // ── Bottom warm gold haze ──
+            const bh = ctx.createLinearGradient(0, height * 0.72, 0, height);
+            bh.addColorStop(0, 'transparent');
+            bh.addColorStop(1, `rgba(217,164,65,0.025)`);
+            ctx.fillStyle = bh;
+            ctx.fillRect(0, height * 0.72, width, height * 0.28);
 
             animId = requestAnimationFrame(render);
         };
@@ -314,19 +241,19 @@ export default function GotBackground() {
                     pointerEvents: 'none', zIndex: 0,
                 }}
             />
-            {/* Deep midnight vignette */}
+            {/* Deep cinematic vignette */}
             <div style={{
                 position: 'fixed', top: 0, left: 0,
                 width: '100vw', height: '100vh',
                 pointerEvents: 'none', zIndex: 0,
-                background: 'radial-gradient(ellipse at 50% 50%, transparent 24%, rgba(4, 4, 10, 0.65) 100%)',
+                background: 'radial-gradient(ellipse at 50% 50%, transparent 28%, rgba(4, 6, 14, 0.72) 100%)',
             }} />
-            {/* Top fade */}
+            {/* Top navbar fade */}
             <div style={{
                 position: 'fixed', top: 0, left: 0,
                 width: '100vw', height: '160px',
                 pointerEvents: 'none', zIndex: 0,
-                background: 'linear-gradient(to bottom, rgba(3, 4, 9, 0.48) 0%, transparent 100%)',
+                background: 'linear-gradient(to bottom, rgba(8,11,20,0.55) 0%, transparent 100%)',
             }} />
         </>
     );

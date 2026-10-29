@@ -4,8 +4,8 @@ import PageTransition from '@/components/PageTransition';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, ArrowRight, CheckCircle2, Database, Code2, X, ExternalLink } from 'lucide-react';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { Download, ArrowRight, CheckCircle2, Database, Code2, X, ExternalLink, Zap, Shield } from 'lucide-react';
+import { FaLinkedin } from 'react-icons/fa';
 import { useState } from 'react';
 
 export default function Home() {
@@ -13,12 +13,12 @@ export default function Home() {
     const [pdfError, setPdfError] = useState(false);
 
     const processSteps = [
-        { num: 'I',   title: 'Forge Strategy',   desc: 'Requirements analysis & mobile blueprint' },
-        { num: 'II',  title: 'UI Architecture',   desc: 'Intuitive, modern Material UX design' },
-        { num: 'III', title: 'Core Development',  desc: 'Robust Java & Android native code' },
-        { num: 'IV',  title: 'Realm Integration', desc: 'Firebase Firestore & REST API pipelines' },
-        { num: 'V',   title: 'Trial & Hardening', desc: 'Comprehensive testing & bug fixing' },
-        { num: 'VI',  title: 'Deployment',        desc: 'Production release & ongoing support' },
+        { num: '01', title: 'Strategy',    desc: 'Requirements analysis & mobile blueprint' },
+        { num: '02', title: 'UI Design',   desc: 'Intuitive, modern Material UX design' },
+        { num: '03', title: 'Development', desc: 'Robust Java & Android native code' },
+        { num: '04', title: 'Integration', desc: 'Firebase Firestore & REST API pipelines' },
+        { num: '05', title: 'Testing',     desc: 'Comprehensive testing & bug fixing' },
+        { num: '06', title: 'Deployment',  desc: 'Production release & ongoing support' },
     ];
 
     const whyMePoints = [
@@ -44,8 +44,8 @@ export default function Home() {
                         onClick={(e) => { if (e.target === e.currentTarget) setShowPdf(false); }}
                     >
                         <div className="pdf-overlay-header">
-                            <span style={{ fontFamily: 'Cinzel, serif', fontWeight: 700, color: 'var(--accent-gold)', fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)' }}>
-                                ⚔ Shreyas Sunil Chudmunge — Resume
+                            <span style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, color: 'var(--accent-bright)', fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)' }}>
+                                Shreyas Sunil Chudmunge — Resume
                             </span>
                             <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
                                 <a
@@ -81,11 +81,11 @@ export default function Home() {
                                 <div style={{
                                     padding: '3rem',
                                     textAlign: 'center',
-                                    background: 'rgba(10,15,27,0.9)',
+                                    background: 'rgba(16,23,38,0.95)',
                                     color: 'var(--text-secondary)',
                                     fontSize: '1rem'
                                 }}>
-                                    <p style={{ marginBottom: '1rem', color: 'var(--accent-gold)', fontFamily: 'Cinzel, serif' }}>
+                                    <p style={{ marginBottom: '1rem', color: 'var(--accent-bright)', fontFamily: 'Outfit, sans-serif' }}>
                                         Could not load PDF preview
                                     </p>
                                     <a href="/resume.pdf" target="_blank" rel="noreferrer" className="btn btn-primary">
@@ -104,7 +104,9 @@ export default function Home() {
                 )}
             </AnimatePresence>
 
-            {/* ── HERO SECTION ── */}
+            {/* ══════════════════════════════════════════════
+                HERO SECTION — Cinematic First Impression
+            ══════════════════════════════════════════════ */}
             <section
                 className="section container"
                 style={{ minHeight: 'calc(100vh - 80px)', display: 'flex', alignItems: 'center', position: 'relative' }}
@@ -115,22 +117,9 @@ export default function Home() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, ease: 'easeOut' }}
                     >
-                        <div style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '0.5rem',
-                            padding: '0.4rem 1rem',
-                            borderRadius: '2rem',
-                            background: 'rgba(212, 175, 55, 0.1)',
-                            border: '1px solid rgba(212, 175, 55, 0.3)',
-                            color: 'var(--accent-gold)',
-                            fontSize: 'clamp(0.75rem, 1.8vw, 0.85rem)',
-                            fontWeight: 600,
-                            fontFamily: 'Cinzel, serif',
-                            letterSpacing: '0.08em',
-                            marginBottom: '1.25rem',
-                        }}>
-                            <span>⚔</span> Android & Java Developer
+                        {/* Badge */}
+                        <div className="badge-red" style={{ marginBottom: '1.5rem' }}>
+                            <Zap size={12} /> Android & Java Developer
                         </div>
 
                         <h1 className="heading-xl mb-4">
@@ -159,6 +148,9 @@ export default function Home() {
                             <Link href="/projects" className="btn btn-primary">
                                 View My Projects <ArrowRight size={18} />
                             </Link>
+                            <Link href="/contact" className="btn btn-secondary">
+                                Contact Me
+                            </Link>
                         </motion.div>
 
                         <motion.div
@@ -168,7 +160,6 @@ export default function Home() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.7, duration: 0.5 }}
                         >
-
                             <a
                                 href="https://linkedin.com/in/shreyaschudmunge96"
                                 target="_blank"
@@ -192,7 +183,7 @@ export default function Home() {
                         </motion.div>
                     </motion.div>
 
-                    {/* Developer Visual */}
+                    {/* Hero Visual */}
                     <motion.div
                         className="hero-visual"
                         style={{ position: 'relative', height: '500px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
@@ -200,16 +191,12 @@ export default function Home() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
                     >
-                        {/* Glowing background blob */}
+                        {/* Red cinematic glow */}
                         <div style={{
                             position: 'absolute',
-                            width: '320px',
-                            height: '320px',
-                            background: 'var(--accent-gradient)',
-                            filter: 'blur(110px)',
-                            opacity: 0.18,
-                            borderRadius: '50%',
-                            zIndex: 0
+                            width: '320px', height: '320px',
+                            background: 'radial-gradient(circle, rgba(230,36,41,0.18) 0%, rgba(217,164,65,0.08) 50%, transparent 70%)',
+                            borderRadius: '50%', zIndex: 0,
                         }} />
 
                         <div style={{ position: 'relative', zIndex: 2, width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -223,70 +210,68 @@ export default function Home() {
                                     maxWidth: '100%',
                                     height: 'auto',
                                     borderRadius: '1.25rem',
-                                    border: '1px solid var(--glass-border)',
-                                    boxShadow: '0 20px 45px rgba(0,0,0,0.6), 0 0 30px rgba(212, 175, 55, 0.15)'
+                                    border: '1px solid rgba(230, 36, 41, 0.2)',
+                                    boxShadow: '0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(230, 36, 41, 0.12)'
                                 }}
                                 priority
                             />
                         </div>
 
-                        {/* Floating Badges */}
+                        {/* Floating Badge — Java */}
                         <motion.div
                             className="glass-card"
                             style={{
-                                position: 'absolute',
-                                top: '10%',
-                                right: '0%',
-                                padding: '0.9rem 1.25rem',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.6rem',
+                                position: 'absolute', top: '10%', right: '0%',
+                                padding: '0.85rem 1.25rem',
+                                display: 'flex', alignItems: 'center', gap: '0.6rem',
                                 zIndex: 3,
-                                border: '1px solid rgba(248, 152, 32, 0.4)',
-                                boxShadow: '0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(248, 152, 32, 0.2)'
+                                border: '1px solid rgba(230, 36, 41, 0.35)',
+                                boxShadow: '0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(230,36,41,0.15)',
                             }}
                             animate={{ y: [0, -10, 0] }}
                             transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
                         >
-                            <Code2 color="#f89820" size={22} />
-                            <span style={{ fontWeight: 700, fontFamily: 'Cinzel, serif', color: '#ffb347' }}>Java Realm</span>
+                            <Code2 color="#E62429" size={22} />
+                            <span style={{ fontWeight: 700, fontFamily: 'Outfit, sans-serif', color: '#FF6B6F', fontSize: '0.9rem' }}>Java</span>
                         </motion.div>
 
+                        {/* Floating Badge — Firebase */}
                         <motion.div
                             className="glass-card"
                             style={{
-                                position: 'absolute',
-                                bottom: '18%',
-                                left: '-4%',
-                                padding: '0.9rem 1.25rem',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.6rem',
+                                position: 'absolute', bottom: '18%', left: '-4%',
+                                padding: '0.85rem 1.25rem',
+                                display: 'flex', alignItems: 'center', gap: '0.6rem',
                                 zIndex: 3,
-                                border: '1px solid rgba(255, 202, 40, 0.4)',
-                                boxShadow: '0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255, 202, 40, 0.2)'
+                                border: '1px solid rgba(217, 164, 65, 0.35)',
+                                boxShadow: '0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(217,164,65,0.15)',
                             }}
                             animate={{ y: [0, 10, 0] }}
                             transition={{ duration: 4.2, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
                         >
-                            <Database color="#FFCA28" size={22} />
-                            <span style={{ fontWeight: 700, fontFamily: 'Cinzel, serif', color: '#ffd54f' }}>Firebase</span>
+                            <Database color="#D9A441" size={22} />
+                            <span style={{ fontWeight: 700, fontFamily: 'Outfit, sans-serif', color: '#FFB84D', fontSize: '0.9rem' }}>Firebase</span>
                         </motion.div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* ── WORK PROCESS ── */}
+            {/* ══════════════════════════════════════════════
+                WORK PROCESS — Numbered Steps
+            ══════════════════════════════════════════════ */}
             <section className="section container">
                 <div className="text-center mb-8">
-                    <h2 className="heading-lg">The Craft &amp; Process</h2>
-                    <div className="got-divider"><span>⚔</span></div>
-                    <p className="text-body">How vision is forged into high-performing mobile reality</p>
+                    <div className="badge-gold" style={{ display: 'inline-flex', marginBottom: '1rem' }}>
+                        <Zap size={12} /> My Process
+                    </div>
+                    <h2 className="heading-lg">Development Workflow</h2>
+                    <div className="got-divider"><span>◆</span></div>
+                    <p className="text-body">How ideas are engineered into high-performing mobile reality</p>
                 </div>
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
                     gap: '1.5rem',
                     position: 'relative'
                 }}>
@@ -298,53 +283,50 @@ export default function Home() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1, duration: 0.5 }}
-                            whileHover={{ y: -6, borderColor: 'rgba(212, 175, 55, 0.5)' }}
                             style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 textAlign: 'center',
-                                padding: 'clamp(1rem, 2.5vw, 2rem) clamp(0.75rem, 2vw, 1.25rem)'
+                                padding: 'clamp(1.25rem, 2.5vw, 2rem) clamp(0.75rem, 2vw, 1.25rem)'
                             }}
                         >
                             <div style={{
-                                width: '3.5rem',
-                                height: '3.5rem',
-                                borderRadius: '50%',
-                                background: 'linear-gradient(135deg, rgba(20, 25, 40, 0.9) 0%, rgba(10, 12, 20, 0.95) 100%)',
-                                border: '2px solid var(--accent-color)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '1.1rem',
-                                fontWeight: 800,
-                                fontFamily: 'Cinzel, serif',
-                                color: 'var(--accent-gold)',
-                                marginBottom: '1.1rem',
-                                boxShadow: '0 0 18px rgba(212, 175, 55, 0.3)',
-                                flexShrink: 0
+                                width: '3.25rem', height: '3.25rem',
+                                borderRadius: '0.875rem',
+                                background: 'rgba(230, 36, 41, 0.1)',
+                                border: '1.5px solid rgba(230, 36, 41, 0.3)',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                fontSize: '1rem', fontWeight: 800,
+                                fontFamily: 'Rajdhani, sans-serif',
+                                color: '#FF6B6F',
+                                marginBottom: '1rem',
+                                boxShadow: '0 0 14px rgba(230, 36, 41, 0.15)',
                             }}>
                                 {step.num}
                             </div>
-                            <h4 style={{ fontSize: 'clamp(0.9rem, 2vw, 1.05rem)', color: 'var(--text-primary)', marginBottom: '0.4rem' }}>{step.title}</h4>
+                            <h4 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 'clamp(0.9rem, 2vw, 1.05rem)', color: 'var(--text-primary)', marginBottom: '0.4rem', fontWeight: 700 }}>{step.title}</h4>
                             <p style={{ fontSize: 'clamp(0.78rem, 1.5vw, 0.85rem)', color: 'var(--text-secondary)' }}>{step.desc}</p>
                         </motion.div>
                     ))}
                 </div>
             </section>
 
-            {/* ── WHY WORK WITH ME ── */}
+            {/* ══════════════════════════════════════════════
+                WHY WORK WITH ME
+            ══════════════════════════════════════════════ */}
             <section className="section container">
                 <div className="two-col-grid">
                     <div>
-                        <h2 className="heading-lg mb-4">Why Work With Me</h2>
-                        <div className="got-divider" style={{ margin: '1rem 0 2.5rem', justifyContent: 'flex-start' }}>
-                            <span>⚔</span>
+                        <div className="badge-gold" style={{ marginBottom: '1rem' }}>
+                            <Shield size={12} /> Why Choose Me
                         </div>
+                        <h2 className="heading-lg mb-4">Why Work With Me</h2>
+                        <div className="red-line" style={{ marginBottom: '2rem' }} />
                         <p className="text-body mb-8" style={{ lineHeight: 1.8 }}>
-                            I unite rigorous technical discipline with meticulous attention to user experience, forging mobile software that executes flawlessly and captivates users.
+                            I unite rigorous technical discipline with meticulous attention to user experience, building mobile software that executes flawlessly and captivates users.
                         </p>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.25rem' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.1rem' }}>
                             {whyMePoints.map((point, index) => (
                                 <motion.div
                                     key={index}
@@ -352,54 +334,49 @@ export default function Home() {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: index * 0.1, duration: 0.4 }}
-                                    style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
+                                    style={{ display: 'flex', alignItems: 'center', gap: '0.9rem' }}
                                 >
                                     <div style={{
-                                        padding: '0.4rem',
+                                        padding: '0.35rem',
                                         borderRadius: '50%',
-                                        background: 'rgba(212, 175, 55, 0.1)',
-                                        border: '1px solid rgba(212, 175, 55, 0.3)',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        flexShrink: 0
+                                        background: 'rgba(230, 36, 41, 0.1)',
+                                        border: '1px solid rgba(230, 36, 41, 0.28)',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        flexShrink: 0,
                                     }}>
-                                        <CheckCircle2 color="var(--accent-color)" size={20} />
+                                        <CheckCircle2 color="#E62429" size={18} />
                                     </div>
-                                    <span style={{ fontSize: 'clamp(0.9rem, 2vw, 1.05rem)', color: 'var(--text-primary)' }}>{point}</span>
+                                    <span style={{ fontSize: 'clamp(0.88rem, 2vw, 1rem)', color: 'var(--text-primary)' }}>{point}</span>
                                 </motion.div>
                             ))}
                         </div>
                     </div>
 
+                    {/* CTA Card */}
                     <div className="glass-card" style={{
                         padding: 'clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem)',
                         textAlign: 'center',
-                        background: 'linear-gradient(135deg, rgba(12,18,32,0.9) 0%, rgba(212,175,55,0.08) 100%)',
-                        border: '1.5px solid rgba(212,175,55,0.25)',
-                        boxShadow: '0 20px 50px rgba(0,0,0,0.6), 0 0 25px rgba(212,175,55,0.1)'
+                        background: 'linear-gradient(135deg, rgba(16,23,38,0.92) 0%, rgba(230,36,41,0.06) 100%)',
+                        border: '1.5px solid rgba(230,36,41,0.22)',
+                        boxShadow: '0 20px 55px rgba(0,0,0,0.65), 0 0 30px rgba(230,36,41,0.08)',
                     }}>
                         <div style={{
-                            width: '56px',
-                            height: '56px',
-                            borderRadius: '50%',
-                            background: 'rgba(212, 175, 55, 0.15)',
-                            border: '1px solid var(--accent-color)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
+                            width: '56px', height: '56px', borderRadius: '1rem',
+                            background: 'rgba(230, 36, 41, 0.12)',
+                            border: '1px solid rgba(230, 36, 41, 0.3)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
                             margin: '0 auto 1.5rem',
-                            color: 'var(--accent-gold)',
-                            fontSize: '1.5rem'
+                            color: '#E62429', fontSize: '1.3rem',
+                            boxShadow: '0 0 20px rgba(230, 36, 41, 0.2)',
                         }}>
-                            ⚔
+                            <Zap size={24} />
                         </div>
-                        <h3 className="heading-md mb-4">Ready To Forge Your App?</h3>
+                        <h3 className="heading-md mb-4">Ready To Build Your App?</h3>
                         <p className="text-body mb-6" style={{ fontSize: '1rem' }}>
                             Let&apos;s turn your vision into a production-grade mobile application.
                         </p>
                         <Link href="/contact" className="btn btn-primary w-full">
-                            Initiate A Project
+                            Start A Project
                         </Link>
                     </div>
                 </div>

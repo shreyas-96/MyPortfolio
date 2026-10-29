@@ -3,7 +3,7 @@
 import PageTransition from '@/components/PageTransition';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Zap } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 
@@ -75,10 +75,10 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
                 height: 'clamp(400px, 90vw, 600px)',
                 borderRadius: '1.75rem',
                 boxShadow:
-                    '0 25px 60px -12px rgba(0,0,0,0.75), 0 0 35px rgba(201,168,76,0.2)',
+                    '0 25px 60px -12px rgba(0,0,0,0.75), 0 0 30px rgba(230,36,41,0.15)',
                 position: 'relative',
                 overflow: 'hidden',
-                border: '2px solid rgba(201,168,76,0.35)',
+                border: '2px solid rgba(230,36,41,0.30)',
                 background: '#04060b',
                 maxWidth: '300px',
             }}
@@ -89,6 +89,7 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
                     src={images[prevIdx]}
                     alt=""
                     fill
+                    sizes="(max-width: 768px) 100vw, 300px"
                     style={{ objectFit: 'cover' }}
                     aria-hidden
                 />
@@ -108,6 +109,7 @@ function ProjectCarousel({ images, title }: { images: string[]; title: string })
                         src={images[activeIdx]}
                         alt={`${title} screenshot ${activeIdx + 1}`}
                         fill
+                        sizes="(max-width: 768px) 100vw, 300px"
                         style={{ objectFit: 'cover' }}
                         priority={activeIdx === 0}
                     />
@@ -164,12 +166,15 @@ export default function Projects() {
         <PageTransition>
             <section className="section container">
                 <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
-                    <h1 className="heading-lg">Featured Creations</h1>
+                    <div className="badge-red" style={{ display: 'inline-flex', marginBottom: '1rem' }}>
+                        <Zap size={12} /> My Work
+                    </div>
+                    <h1 className="heading-lg">Featured <span className="text-gradient">Projects</span></h1>
                     <div className="got-divider">
-                        <span>⚔</span>
+                        <span>◆</span>
                     </div>
                     <p className="text-body">
-                        Battle-tested Android applications forged with Java and Firebase
+                        Production-tested Android applications built with Java and Firebase
                     </p>
                 </div>
 
@@ -199,11 +204,11 @@ export default function Projects() {
                                         display: 'inline-flex',
                                         alignItems: 'center',
                                         gap: '0.5rem',
-                                        color: 'var(--accent-gold)',
-                                        fontSize: '0.82rem',
+                                        color: '#FF6B6F',
+                                        fontSize: '0.78rem',
                                         fontWeight: 700,
-                                        fontFamily: 'Cinzel, serif',
-                                        letterSpacing: '0.08em',
+                                        fontFamily: 'Rajdhani, sans-serif',
+                                        letterSpacing: '0.1em',
                                         marginBottom: '0.75rem',
                                     }}
                                 >
@@ -221,8 +226,8 @@ export default function Projects() {
                                     className="glass-card mb-6"
                                     style={{
                                         padding: '1.75rem',
-                                        background: 'rgba(10,15,28,0.85)',
-                                        borderLeft: '3px solid var(--accent-color)',
+                                        background: 'rgba(16,23,38,0.85)',
+                                        borderLeft: '3px solid var(--accent-red)',
                                     }}
                                 >
                                     <p
@@ -253,12 +258,12 @@ export default function Projects() {
                                         >
                                             <span
                                                 style={{
-                                                    color: 'var(--accent-color)',
-                                                    marginTop: '0.1rem',
-                                                    fontSize: '1rem',
+                                                    color: '#E62429',
+                                                    marginTop: '0.2rem',
+                                                    fontSize: '0.75rem',
                                                 }}
                                             >
-                                                ⚔
+                                                ▸
                                             </span>
                                             {feature}
                                         </li>
@@ -277,13 +282,14 @@ export default function Projects() {
                                         <span
                                             key={tech}
                                             style={{
-                                                fontSize: '0.85rem',
-                                                color: 'var(--accent-gold)',
-                                                fontFamily: 'Cinzel, serif',
-                                                letterSpacing: '0.03em',
-                                                background: 'rgba(212,175,55,0.08)',
-                                                border: '1px solid rgba(212,175,55,0.25)',
-                                                padding: '0.4rem 0.85rem',
+                                                fontSize: '0.82rem',
+                                                color: '#FFB84D',
+                                                fontFamily: 'Rajdhani, sans-serif',
+                                                letterSpacing: '0.06em',
+                                                fontWeight: 600,
+                                                background: 'rgba(217,164,65,0.08)',
+                                                border: '1px solid rgba(217,164,65,0.25)',
+                                                padding: '0.35rem 0.85rem',
                                                 borderRadius: '2rem',
                                             }}
                                         >
