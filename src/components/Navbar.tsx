@@ -31,8 +31,8 @@ export default function Navbar() {
         <nav
             className="navbar"
             style={{
-                background: scrolled ? 'rgba(6, 9, 17, 0.92)' : 'rgba(6, 9, 17, 0.65)',
-                padding: scrolled ? '1rem 0' : '1.35rem 0',
+                background: scrolled ? 'rgba(6, 9, 17, 0.95)' : 'rgba(6, 9, 17, 0.65)',
+                padding: scrolled ? '0.4rem 0' : '0.5rem 0',
                 borderBottom: scrolled ? '1px solid var(--glass-border)' : '1px solid transparent',
                 backdropFilter: 'blur(16px)',
             }}

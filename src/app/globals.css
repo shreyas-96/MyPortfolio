@@ -43,7 +43,8 @@ canvas {
 }
 
 .navbar {
-  padding-top: max(0px, env(safe-area-inset-top));
+  /* Safe-area top only for actual iOS notch devices (0 on desktop) */
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 footer {
@@ -78,6 +79,7 @@ footer {
   --accent-gold:    #D4AF50;
   --accent-bright:  #E8C96A;
   --accent-dark:    #8B6F28;
+  --accent-ice:     #00F0FF;
 
   /* Gradients */
   --accent-gradient: linear-gradient(135deg, #D4AF50 0%, #8B6F28 55%, #C9A84C 100%);
@@ -267,38 +269,45 @@ img, video { max-width: 100%; height: auto; }
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 44px;               /* compact fixed row height */
 }
 .logo {
   font-family: 'Cinzel', serif;
-  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-size: clamp(1rem, 2.2vw, 1.25rem);   /* was 1.5rem max — reduced */
   font-weight: 800;
   color: var(--text-primary);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.25rem;
   flex-shrink: 0;
+  line-height: 1;
 }
 .nav-links {
   display: flex;
-  gap: clamp(1rem, 2.5vw, 2rem);
+  gap: clamp(0.6rem, 1.6vw, 1.2rem);          /* tight gap between links */
   align-items: center;
 }
 .nav-link {
-  font-size: clamp(0.76rem, 1.4vw, 0.88rem);
+  font-size: clamp(0.7rem, 1.2vw, 0.82rem);  /* slightly smaller */
   font-weight: 600;
   font-family: 'Cinzel', serif;
   letter-spacing: 0.05em;
   color: var(--text-muted);
   transition: var(--transition);
   text-transform: uppercase;
+  line-height: 1;
 }
 .nav-link:hover,
 .nav-link.active { color: var(--accent-gold); }
 
+/* Footer icon hover */
+.footer-link:hover { color: var(--accent-gold) !important; }
+.hover\:text-accent:hover { color: var(--accent-gold) !important; }
+
 /* ── PAGE WRAPPER ── */
 .page-wrapper {
-  padding-top: 80px;
+  padding-top: 54px;          /* matches the compact navbar height */
   min-height: 100vh;
   display: flex;
   flex-direction: column;

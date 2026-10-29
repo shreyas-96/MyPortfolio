@@ -130,13 +130,13 @@ export default function Home() {
                             letterSpacing: '0.08em',
                             marginBottom: '1.25rem',
                         }}>
-                            <span>⚔</span> Android &amp; Java Engineer
+                            <span>⚔</span> Android & Java Developer
                         </div>
 
                         <h1 className="heading-xl mb-4">
                             Hi, I&apos;m Shreyas<br />
-                            <span className="text-gradient">Android Developer</span><br />
-                            &amp; Java Specialist
+                            <span className="text-gradient">Android & Java</span><br />
+                            Developer
                         </h1>
 
                         <motion.p
@@ -159,9 +159,6 @@ export default function Home() {
                             <Link href="/projects" className="btn btn-primary">
                                 View My Projects <ArrowRight size={18} />
                             </Link>
-                            <Link href="/contact" className="btn btn-secondary">
-                                Let&apos;s Work Together
-                            </Link>
                         </motion.div>
 
                         <motion.div
@@ -171,16 +168,7 @@ export default function Home() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.7, duration: 0.5 }}
                         >
-                            <a
-                                href="https://github.com/shreyas-96"
-                                target="_blank"
-                                rel="noreferrer"
-                                className="btn btn-secondary"
-                                style={{ padding: '0.75rem', borderRadius: '50%' }}
-                                aria-label="GitHub"
-                            >
-                                <FaGithub size={20} />
-                            </a>
+
                             <a
                                 href="https://linkedin.com/in/shreyaschudmunge96"
                                 target="_blank"
